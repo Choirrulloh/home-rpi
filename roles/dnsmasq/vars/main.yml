@@ -1,0 +1,20 @@
+---
+# variables for local config
+
+# default router address
+ DEFAULT_GW: "192.168.1.1"
+
+# upstream ntp server
+ NTP_SERVER: "193.92.150.3"
+
+# upstream dns servers
+ DNS1: "193.92.3.100"
+ DNS2: "193.92.3.101"
+
+# family shield dns servers provided by opendns
+ FAMILY_DNS1: "208.67.222.123"
+ FAMILY_DNS2: "208.67.220.123"
+
+# opendns servers
+ OPENDNS1: "208.67.222.222"
+ OPENDNS2: "208.67.220.220"

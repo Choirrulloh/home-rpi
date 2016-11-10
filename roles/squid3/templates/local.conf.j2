@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+# ansible default ipv4 address {{ ansible_default_ipv4.address }}
+
+# permit localnet {{ LOCALNET }}
+acl localnet src {{ LOCALNET }}
+http_access allow localnet
+
+# use family shield dns servers
+dns_nameservers {{ FAMILY_DNS1 }} {{ FAMILY_DNS2 }}
+
+# short shutdown_lifetime
+shutdown_lifetime {{ SHUTDOWN_LIFETIME }}

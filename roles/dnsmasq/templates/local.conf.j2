@@ -1,0 +1,49 @@
+# {{ ansible_managed }}
+# ansible default ipv4 address {{ ansible_default_ipv4.address }}
+
+domain-needed
+bogus-priv
+#resolv-file=/etc/dnsmasq.resolv
+strict-order
+no-resolv
+no-poll
+server={{ DNS1 }}
+server={{ DNS2 }}
+cache-size=4096
+
+address=/rpi.local/{{ ansible_default_ipv4.address }}
+address=/wpad.local/{{ ansible_default_ipv4.address }}
+
+local=/local/
+domain=local
+expand-hosts
+
+dhcp-authoritative
+#log-dhcp
+
+dhcp-range=192.168.1.128,192.168.1.254,255.255.255.0,7d
+
+dhcp-host=B8:27:EB:B1:6F:E3,rpi,192.168.1.3,set:opendns
+dhcp-host=E8:DE:27:1D:2B:54,jumbo,192.168.1.2,set:opendns
+dhcp-host=34:36:3B:65:AE:16,koala3,192.168.1.4,set:direct
+dhcp-host=4C:BB:58:33:A3:F9,d3ll,192.168.1.5,set:opendns
+dhcp-host=00:15:00:5F:0F:B8,sharjah,192.168.1.6,set:opendns
+dhcp-host=00:15:00:5F:0F:B8,cannon,192.168.1.7,set:opendns
+dhcp-host=BC:6E:64:DA:21:5D,z3c,192.168.1.10,set:direct
+dhcp-host=30:39:26:9c:bc:ff,sola,192.168.1.11,set:opendns
+dhcp-host=34:aa:8b:13:64:92,nexus10,192.168.1.12,set:opendns
+dhcp-host=00:90:A9:D5:6A:AC,WDMyCloud,192.168.1.20,set:direct
+dhcp-host=00:15:99:9C:57:5F,printer,192.168.1.21,set:direct
+dhcp-host=c4:36:6c:13:f0:ec,TV,192.168.1.66,set:direct
+dhcp-host=A0:F3:C1:C4:5B:3A,RIPE-Atlas,192.168.1.67,set:direct
+
+dhcp-option=option:router, {{ DEFAULT_GW }}
+dhcp-option=option:ntp-server, 0.0.0.0, {{ NTP_SERVER }}
+dhcp-option=option:dns-server, {{ FAMILY_DNS1 }}, {{ FAMILY_DNS2 }}
+
+dhcp-option = tag:opendns, option:dns-server, {{ OPENDNS1 }}, {{ OPENDNS2 }}
+dhcp-option = tag:direct, option:dns-server, 0.0.0.0, {{ DEFAULT_GW }}
+
+# Send an empty WPAD option. This may be REQUIRED to get windows 7 to behave.
+#dhcp-option=252,"\n"
+dhcp-option=252,"http://192.168.1.3/proxy.pac"

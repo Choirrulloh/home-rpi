@@ -1,0 +1,15 @@
+---
+# this playbook contains ntp daemon setup
+
+- name: install ntp package
+  apt: name=ntp state=latest
+  tags: ntp
+
+#- name: configure ntp file
+#  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+#  tags: ntp
+#  notify: restart ntp
+
+- name: start the ntp service
+  service: name=ntp state=started enabled=yes
+  tags: ntp

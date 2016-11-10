@@ -1,2 +1,2 @@
 # home-rpi
-ansible magic for home rasperry pi
+ansible magic for home raspberry pi

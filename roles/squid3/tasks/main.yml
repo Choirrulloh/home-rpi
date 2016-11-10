@@ -1,0 +1,17 @@
+---
+# this playbook contains squid3 daemon setup
+
+- name: install squid3 package
+  apt: name=squid3 state=latest
+  tags: squid3
+
+- name: deploy squid3.local from template
+  template: src=roles/squid3/templates/local.conf.j2 dest=/etc/squid3/local.conf
+    owner=root mode=644
+  tags: squid3
+  notify:
+  - restart squid3
+
+- name: start the squid3 service
+  service: name=squid3 state=started enabled=yes
+  tags: squid3

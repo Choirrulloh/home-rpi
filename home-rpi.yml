@@ -1,0 +1,15 @@
+---
+# home raspberry pi playbook
+# assume default login is with pi user, so we need to become root
+
+- name: home-rpi
+  hosts: rpi.local
+  remote_user: pi
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  roles:
+    - ntp
+    - dnsmasq
+    - squid3

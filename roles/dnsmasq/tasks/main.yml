@@ -1,0 +1,17 @@
+---
+# this playbook contains dnsmasq daemon setup
+
+- name: install dnsmasq package
+  apt: name=dnsmasq state=latest
+  tags: dnsmasq
+
+- name: deploy dnsmasq.local from template
+  template: src=roles/dnsmasq/templates/local.conf.j2 dest=/etc/dnsmasq.d/local.conf
+    owner=root mode=644
+  tags: dnsmasq
+  notify:
+  - restart dnsmasq
+
+- name: start the dnsmasq service
+  service: name=dnsmasq state=started enabled=yes
+  tags: dnsmasq
